@@ -33,7 +33,7 @@
 
 ## Ссылка на опубликованный проект
 
-GitHub Pages: https://kryptonkn.github.io/kr1-html-css-shop/
+GitHub Pages: https://brohehosec.github.io/kr1-html-css-shop/
 
 ## Постановка контрольной работы №1
 
