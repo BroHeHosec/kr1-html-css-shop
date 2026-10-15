@@ -371,6 +371,7 @@ main {
   position: absolute;
   top: var(--space-sm);
   right: var(--space-sm);
+  z-index: 2;
   padding: 4px 8px;
   color: var(--color-white);
   background-color: var(--color-danger);
@@ -626,7 +627,7 @@ main {
 
 
 /* ===============================
-   20. Адаптивность
+   20. Адаптивность (основные блоки)
    =============================== */
 
 @media (max-width: 800px) {
@@ -660,5 +661,178 @@ main {
 
   .section {
     scroll-margin-top: var(--space-md);
+  }
+}
+
+
+/* ===============================
+   21. Карточка товара (product.html)
+   =============================== */
+
+.product-detail {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-xl);
+  max-width: var(--container-width);
+  margin: 0 auto var(--space-xl);
+  padding: 0 var(--space-lg);
+}
+
+.product-detail__image-wrap {
+  position: relative; /* нужно для абсолютного бейджа */
+}
+
+.product-detail__image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 320px;
+  padding: var(--space-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  color: var(--color-muted);
+  font-size: 14px;
+  text-align: center;
+}
+
+.product-detail__badge {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  z-index: 2;
+  padding: 4px 10px;
+  color: var(--color-white);
+  background-color: var(--color-danger);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.product-detail__info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.product-detail__title {
+  margin: 0;
+}
+
+.product-detail__description {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+.product-detail__price {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.product-detail__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+
+/* ===============================
+   22. Таблица характеристик
+   =============================== */
+
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background-color: var(--color-bg);
+}
+
+.product-table caption {
+  padding: var(--space-sm) 0;
+  color: var(--color-muted);
+  font-size: 14px;
+  text-align: left;
+}
+
+.product-table th,
+.product-table td {
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.product-table thead th {
+  background-color: var(--color-surface);
+  font-weight: 700;
+}
+
+.product-table tbody tr:last-child th,
+.product-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+
+/* ===============================
+   23. Страница оформления заявки
+   =============================== */
+
+.order-page {
+  max-width: 640px;
+}
+
+.order-page__lead {
+  margin-top: 0;
+  margin-bottom: var(--space-lg);
+  color: var(--color-muted);
+}
+
+.order-page .order-form {
+  padding: var(--space-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+}
+
+.order-page .order-form__actions {
+  justify-content: flex-start;
+}
+
+
+/* ===============================
+   24. Адаптивность для новых блоков
+   =============================== */
+
+@media (max-width: 800px) {
+  .product-detail {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  .product-detail__image {
+    min-height: 220px;
+  }
+}
+
+@media (max-width: 540px) {
+  .product-detail {
+    padding: 0 var(--space-md);
+  }
+
+  .product-detail__price {
+    font-size: 20px;
+  }
+
+  .product-table th,
+  .product-table td {
+    padding: var(--space-xs) var(--space-sm);
+    font-size: 14px;
   }
 }
