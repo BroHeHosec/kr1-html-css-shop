@@ -205,3 +205,101 @@ python3 -m http.server 8000
 
 Ветка: `feature/flex-grid-navigation` → `main`.
 Название Pull Request: `Add flex navigation and grid catalog layout`.
+
+## История выполнения
+...
+- Дополнительно: применены Flexbox и CSS Grid, добавлены адаптивные колонки карточек и закрепление шапки при прокрутке.
+- - Практическая работа 7: выполнен рефакторинг CSS-стилей по методологии БЭМ: переименованы классы шапки, навигации, карточек, формы, модального окна и хлебных крошек; убрана стилизация через id и по тегам; уменьшена вложенность селекторов; все крупные компоненты оформлены как БЭМ-блоки с элементами и модификаторами.
+
+
+## БЭМ-структура проекта
+
+Все крупные компоненты проекта оформлены по методологии БЭМ:
+блок → элемент → модификатор.
+
+### Блоки
+
+- `site-header` — шапка сайта;
+- `site-nav` — основная навигация;
+- `breadcrumbs` — хлебные крошки;
+- `hero` — первый экран главной страницы;
+- `section` — универсальный раздел страницы;
+- `advantages` — блок преимуществ;
+- `products-grid` — сетка товаров;
+- `product-card` — карточка товара;
+- `catalog-layout` — структура страницы каталога;
+- `catalog-filters` — фильтры каталога;
+- `catalog-products` — список товаров каталога;
+- `order-dialog` — модальное окно заявки;
+- `order-form` — форма заявки;
+- `button` — кнопка;
+- `aside-info` — информационный блок;
+- `contact-details` — контактные данные;
+- `site-footer` — подвал сайта.
+
+### Элементы (примеры)
+
+- `site-header__inner`, `site-header__logo`;
+- `site-nav__list`, `site-nav__item`, `site-nav__link`;
+- `breadcrumbs__link`, `breadcrumbs__current`;
+- `hero__title`, `hero__description`, `hero__link`;
+- `product-card__title`, `product-card__description`, `product-card__price`, `product-card__button`, `product-card__link`, `product-card__badge`;
+- `catalog-filters__title`, `catalog-filters__note`, `catalog-filters__form`, `catalog-filters__group`, `catalog-filters__legend`, `catalog-filters__label`, `catalog-filters__option`, `catalog-filters__input`;
+- `order-form__field`, `order-form__label`, `order-form__input`, `order-form__hint`, `order-form__actions`;
+- `order-dialog__title`;
+- `site-footer__inner`;
+- `aside-info__title`;
+- `contact-details__list`, `contact-details__item`;
+- `section__title`;
+- `advantages__list`, `advantages__item`.
+
+### Модификаторы (примеры)
+
+- `button--primary` — основная кнопка;
+- `button--secondary` — второстепенная кнопка;
+- `site-nav__link--active` — активный пункт меню;
+- `product-card--featured` — выделенная карточка;
+- `product-card--discount` — карточка со скидкой;
+- `order-form__field--checkbox` — поле формы с чекбоксом.
+
+### Что изменилось по сравнению с предыдущими практиками
+
+- Убраны классы, описывающие только внешний вид (`red`, `big`, `left` и подобные) — при наличии.
+- Убраны селекторы по тегам (`header`, `footer`, `main`, `li`, `a`, `h3`, `p`) — теперь стилизация идёт через классы.
+- Уменьшена вложенность CSS-селекторов: вместо `.catalog-layout .catalog-products .products-grid .product-card h3` используется `.product-card__title`.
+- Стилизация через `id` не используется — id остались только для JavaScript и якорных ссылок.
+- Inline-стили отсутствуют.
+
+## CSS-архитектура
+
+В проекте используются:
+
+- БЭМ-именование классов: `block`, `block__element`, `block--modifier`;
+- CSS-переменные в `:root`;
+- единая шкала отступов;
+- все компоненты оформлены как независимые БЭМ-блоки: шапка (`site-header`), навигация (`site-nav`), карточка (`product-card`), форма (`order-form`), модальное окно (`order-dialog`), хлебные крошки (`breadcrumbs`), сетка (`products-grid`), каталог (`catalog-layout`, `catalog-filters`, `catalog-products`).
+
+## Оформление практической работы 7
+
+Ветка: `refactor/bem-final` → `main`.
+Название Pull Request: `Apply BEM naming to CSS classes`.
+
+### Что сделано
+
+- Проведён аудит CSS-классов во всех HTML-файлах и в `css/style.css`.
+- Основные компоненты проекта приведены к БЭМ-структуре (блок, элемент, модификатор).
+- Переименованы классы шапки, навигации, карточек, формы, модального окна, хлебных крошек.
+- Уменьшена вложенность CSS-селекторов.
+- Убрана стилизация через теги и id.
+- Сохранены CSS-переменные, состояния `:hover` / `:focus-visible`, Flexbox / Grid.
+- Проверена работа JavaScript после переименования классов.
+- Обновлён README.
+
+### Как проверить
+
+- Открыть `index.html`: проверить шапку, меню, hero-блок, карточки и модальное окно.
+- Открыть `catalog.html`: проверить хлебные крошки, фильтры и сетку товаров.
+- Открыть `contacts.html`: проверить хлебные крошки и блок контактов.
+- Нажать «Заказать» в карточке — модальное окно должно открыться, а в скрытое поле `selected-product` должно попасть название товара.
+- Проверить форму заявки: пустая форма даёт ошибки, заполненная — сообщение об успехе.
+- В DevTools убедиться, что применяются БЭМ-классы.
