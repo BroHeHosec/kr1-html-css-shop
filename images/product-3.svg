@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="Изображение товара 3">
+  <rect width="400" height="300" fill="#fff5e6"/>
+  <polygon points="200,60 320,200 80,200" fill="#b00020"/>
+  <circle cx="200" cy="150" r="10" fill="#ffffff"/>
+  <text x="200" y="260" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#666666">Товар 3</text>
+</svg>

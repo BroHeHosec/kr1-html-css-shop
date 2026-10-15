@@ -1,26 +1,14 @@
 // ============================================
 // 1. Модальное окно и форма в модалке
 // ============================================
-// Этот блок выполняется только на страницах,
-// где есть <dialog id="order-dialog">.
-// На order.html модалки нет — блок просто пропустится.
 
 const orderDialog = document.getElementById('order-dialog');
 
 if (orderDialog) {
-  // Кнопки заказа в карточках и общая кнопка «Оставить заявку».
   const orderButtons = document.querySelectorAll('.product-card__button, [data-open-order]');
-
-  // Кнопка закрытия модального окна.
   const closeDialogButton = document.getElementById('close-order-dialog');
-
-  // Скрытое поле, в которое записывается выбранный товар.
   const selectedProductInput = document.getElementById('selected-product');
-
-  // Форма заявки внутри модалки.
   const orderForm = document.getElementById('order-form');
-
-  // Сообщение об успешной отправке (обычно на главной).
   const successMessage = document.getElementById('success-message');
 
   // Клик по свободному месту модалки снимает выбор поля.
@@ -38,22 +26,26 @@ if (orderDialog) {
     button.addEventListener('click', () => {
       const productName = button.dataset.product || '';
 
-      // Убираем ошибки от предыдущей попытки заполнения.
       if (orderForm) {
         orderForm.querySelectorAll('[aria-invalid]').forEach((field) => {
-          field.removeAttribute('aria-invalid');
+          field.setAttribute('aria-invalid', 'false');
         });
       }
       if (successMessage) {
         successMessage.hidden = true;
       }
 
-      // Записываем название товара в скрытое поле.
       if (selectedProductInput) {
         selectedProductInput.value = productName;
       }
 
       orderDialog.showModal();
+
+      // Переводим фокус на первое поле ввода — так удобнее для клавиатуры.
+      const firstInput = orderForm && orderForm.querySelector('input:not([type="hidden"])');
+      if (firstInput) {
+        firstInput.focus({ preventScroll: true });
+      }
     });
   });
 
@@ -71,27 +63,49 @@ if (orderDialog) {
 
       const formElements = Array.from(orderForm.elements);
 
+      // Сбрасываем предыдущие признаки ошибок.
       formElements.forEach((element) => {
         if (element.willValidate) {
-          element.removeAttribute('aria-invalid');
+          element.setAttribute('aria-invalid', 'false');
         }
       });
 
+      // Проверяем форму.
       if (!orderForm.checkValidity()) {
+        let firstInvalidField = null;
+
         formElements.forEach((element) => {
           if (element.willValidate && !element.checkValidity()) {
             element.setAttribute('aria-invalid', 'true');
+            if (!firstInvalidField) {
+              firstInvalidField = element;
+            }
           }
         });
+
+        // Фокус — на первое невалидное поле.
+        if (firstInvalidField) {
+          firstInvalidField.focus();
+        }
+
         orderForm.reportValidity();
         return;
       }
 
+      // Успех.
       if (successMessage) {
         successMessage.hidden = false;
       }
 
       orderForm.reset();
+
+      // После reset возвращаем aria-invalid="false" на всех полях.
+      formElements.forEach((element) => {
+        if (element.willValidate) {
+          element.setAttribute('aria-invalid', 'false');
+        }
+      });
+
       orderDialog.close();
     });
   }
@@ -101,8 +115,6 @@ if (orderDialog) {
 // ============================================
 // 2. Форма на отдельной странице order.html
 // ============================================
-// Выполняется только если на странице есть
-// <form id="order-form-page">.
 
 const orderPageForm = document.getElementById('order-form-page');
 const successMessagePage = document.getElementById('success-message-page');
@@ -115,7 +127,7 @@ if (orderPageForm) {
 
     pageFormElements.forEach((element) => {
       if (element.willValidate) {
-        element.removeAttribute('aria-invalid');
+        element.setAttribute('aria-invalid', 'false');
       }
     });
 
@@ -124,11 +136,21 @@ if (orderPageForm) {
     }
 
     if (!orderPageForm.checkValidity()) {
+      let firstInvalidField = null;
+
       pageFormElements.forEach((element) => {
         if (element.willValidate && !element.checkValidity()) {
           element.setAttribute('aria-invalid', 'true');
+          if (!firstInvalidField) {
+            firstInvalidField = element;
+          }
         }
       });
+
+      if (firstInvalidField) {
+        firstInvalidField.focus();
+      }
+
       orderPageForm.reportValidity();
       return;
     }
@@ -138,5 +160,45 @@ if (orderPageForm) {
     }
 
     orderPageForm.reset();
+
+    pageFormElements.forEach((element) => {
+      if (element.willValidate) {
+        element.setAttribute('aria-invalid', 'false');
+      }
+    });
+  });
+}
+
+
+// ============================================
+// 3. Кнопка «Наверх»
+// ============================================
+
+const toTopButton = document.querySelector('.to-top');
+
+if (toTopButton) {
+  const toggleToTopVisibility = () => {
+    if (window.scrollY > 300) {
+      toTopButton.hidden = false;
+      toTopButton.classList.add('to-top--visible');
+    } else {
+      toTopButton.classList.remove('to-top--visible');
+      window.setTimeout(() => {
+        if (window.scrollY <= 300) {
+          toTopButton.hidden = true;
+        }
+      }, 220);
+    }
+  };
+
+  window.addEventListener('scroll', toggleToTopVisibility, { passive: true });
+  toggleToTopVisibility();
+
+  toTopButton.addEventListener('click', () => {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({
+      top: 0,
+      behavior: prefersReduced ? 'auto' : 'smooth',
+    });
   });
 }

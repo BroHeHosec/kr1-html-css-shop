@@ -16,6 +16,7 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="ShopProject — учебный интернет-магазин">
   <link rel="stylesheet" href="css/style.css">
+  <script src="js/main.js" defer></script>
 </head>
 <body>
   <header class="site-header">
@@ -30,6 +31,12 @@
             <a class="site-nav__link" href="catalog.html">Каталог</a>
           </li>
           <li class="site-nav__item">
+            <a class="site-nav__link" href="product.html">Товар</a>
+          </li>
+          <li class="site-nav__item">
+            <a class="site-nav__link" href="order.html">Заявка</a>
+          </li>
+          <li class="site-nav__item">
             <a class="site-nav__link site-nav__link--active" href="contacts.html" aria-current="page">Контакты</a>
           </li>
           <li class="site-nav__item">
@@ -37,9 +44,6 @@
           </li>
           <li class="site-nav__item">
             <a class="site-nav__link" href="index.html#popular">Популярные товары</a>
-          </li>
-          <li class="site-nav__item">
-            <a class="site-nav__link" href="index.html#contacts">Обратная связь</a>
           </li>
         </ul>
       </nav>
@@ -67,10 +71,9 @@
     <section class="section" id="feedback">
       <h2 class="section__title">Обратная связь</h2>
       <p>
-        Для отправки заявки откройте раздел обратной связи на главной странице
-        и нажмите «Оставить заявку». Форма откроется в модальном окне.
+        Для отправки заявки откройте страницу заявки — форма откроется прямо на странице.
       </p>
-      <a class="button button--primary" href="index.html#contacts">Перейти к форме</a>
+      <a class="button button--primary" href="order.html">Перейти к форме заявки</a>
     </section>
 
     <aside class="aside-info">
@@ -90,5 +93,7 @@
       <p><a href="contacts.html">Контактная информация</a></p>
     </div>
   </footer>
+
+  <button class="to-top" type="button" aria-label="Наверх" hidden>↑</button>
 </body>
 </html>
