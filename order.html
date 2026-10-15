@@ -45,6 +45,9 @@
           <li class="site-nav__item">
             <a class="site-nav__link" href="index.html#popular">Популярные товары</a>
           </li>
+          <li class="site-nav__item">
+            <a class="site-nav__link" href="index.html#faq">FAQ</a>
+          </li>
         </ul>
       </nav>
     </div>
@@ -77,6 +80,8 @@
             minlength="2"
             autocomplete="given-name"
             required
+            aria-required="true"
+            aria-invalid="false"
           >
         </div>
 
@@ -90,6 +95,8 @@
             placeholder="example@mail.ru"
             autocomplete="email"
             required
+            aria-required="true"
+            aria-invalid="false"
           >
         </div>
 
@@ -103,9 +110,13 @@
             inputmode="tel"
             placeholder="+7 (900) 000-00-00"
             pattern="^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$"
+            autocomplete="tel"
             required
+            aria-required="true"
+            aria-invalid="false"
+            aria-describedby="page-order-phone-hint"
           >
-          <small class="order-form__hint">Формат: +7 (900) 000-00-00</small>
+          <small class="order-form__hint" id="page-order-phone-hint">Формат: +7 (900) 000-00-00</small>
         </div>
 
         <div class="order-form__field">
@@ -115,12 +126,20 @@
             id="page-order-date"
             name="date"
             type="date"
+            aria-invalid="false"
           >
         </div>
 
         <div class="order-form__field">
           <label class="order-form__label" for="page-order-topic">Тема заявки *</label>
-          <select class="order-form__input" id="page-order-topic" name="topic" required>
+          <select
+            class="order-form__input"
+            id="page-order-topic"
+            name="topic"
+            required
+            aria-required="true"
+            aria-invalid="false"
+          >
             <option value="">Выберите тему</option>
             <option value="product">Заказ товара</option>
             <option value="consultation">Консультация</option>
@@ -136,6 +155,7 @@
             name="comment"
             rows="4"
             placeholder="Укажите дополнительную информацию"
+            aria-invalid="false"
           ></textarea>
         </div>
 
@@ -146,6 +166,8 @@
               name="agreement"
               type="checkbox"
               required
+              aria-required="true"
+              aria-invalid="false"
             >
             Я согласен на обработку данных *
           </label>
@@ -156,7 +178,13 @@
         </div>
       </form>
 
-      <p class="success-message" id="success-message-page" role="status" hidden>
+      <p
+        class="success-message"
+        id="success-message-page"
+        role="status"
+        aria-live="polite"
+        hidden
+      >
         Заявка проверена. В учебной версии данные не отправляются на сервер.
       </p>
     </section>
@@ -179,5 +207,7 @@
       <p><a href="contacts.html">Контактная информация</a></p>
     </div>
   </footer>
+
+  <button class="to-top" type="button" aria-label="Наверх" hidden>↑</button>
 </body>
 </html>

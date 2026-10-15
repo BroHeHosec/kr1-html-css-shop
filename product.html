@@ -45,6 +45,9 @@
           <li class="site-nav__item">
             <a class="site-nav__link" href="index.html#popular">Популярные товары</a>
           </li>
+          <li class="site-nav__item">
+            <a class="site-nav__link" href="index.html#faq">FAQ</a>
+          </li>
         </ul>
       </nav>
     </div>
@@ -60,9 +63,13 @@
     <article class="product-detail">
       <div class="product-detail__image-wrap">
         <span class="product-detail__badge">Хит</span>
-        <div class="product-detail__image" role="img" aria-label="Изображение товара 1">
-          Изображение товара 1
-        </div>
+        <img
+          class="product-detail__image"
+          src="images/product-1.svg"
+          alt="Изображение товара 1"
+          width="400"
+          height="300"
+        >
       </div>
 
       <div class="product-detail__info">
@@ -139,14 +146,24 @@
     </div>
   </footer>
 
-  <dialog class="order-dialog" id="order-dialog" aria-labelledby="order-dialog-title">
+  <dialog
+    class="order-dialog"
+    id="order-dialog"
+    aria-labelledby="order-dialog-title"
+    aria-describedby="order-dialog-description"
+  >
     <h2 class="order-dialog__title" id="order-dialog-title" tabindex="-1" autofocus>Оформление заявки</h2>
+
+    <p id="order-dialog-description" class="order-dialog__description">
+      Заполните форму — мы свяжемся с вами для уточнения деталей заказа.
+      Поля, отмеченные звёздочкой, обязательны.
+    </p>
 
     <form class="order-form" id="order-form" action="#" method="post" novalidate>
       <input id="selected-product" name="selected-product" type="hidden">
 
       <div class="order-form__field">
-        <label class="order-form__label" for="order-name">Имя</label>
+        <label class="order-form__label" for="order-name">Имя *</label>
         <input
           class="order-form__input"
           id="order-name"
@@ -156,11 +173,13 @@
           minlength="2"
           autocomplete="given-name"
           required
+          aria-required="true"
+          aria-invalid="false"
         >
       </div>
 
       <div class="order-form__field">
-        <label class="order-form__label" for="order-email">E-mail</label>
+        <label class="order-form__label" for="order-email">E-mail *</label>
         <input
           class="order-form__input"
           id="order-email"
@@ -169,11 +188,13 @@
           placeholder="example@mail.ru"
           autocomplete="email"
           required
+          aria-required="true"
+          aria-invalid="false"
         >
       </div>
 
       <div class="order-form__field">
-        <label class="order-form__label" for="order-phone">Телефон</label>
+        <label class="order-form__label" for="order-phone">Телефон *</label>
         <input
           class="order-form__input"
           id="order-phone"
@@ -182,14 +203,25 @@
           inputmode="tel"
           placeholder="+7 (900) 000-00-00"
           pattern="^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$"
+          autocomplete="tel"
           required
+          aria-required="true"
+          aria-invalid="false"
+          aria-describedby="order-phone-hint"
         >
-        <small class="order-form__hint">Формат: +7 (900) 000-00-00</small>
+        <small class="order-form__hint" id="order-phone-hint">Формат: +7 (900) 000-00-00</small>
       </div>
 
       <div class="order-form__field">
-        <label class="order-form__label" for="order-topic">Тема заявки</label>
-        <select class="order-form__input" id="order-topic" name="topic" required>
+        <label class="order-form__label" for="order-topic">Тема заявки *</label>
+        <select
+          class="order-form__input"
+          id="order-topic"
+          name="topic"
+          required
+          aria-required="true"
+          aria-invalid="false"
+        >
           <option value="">Выберите тему</option>
           <option value="product">Заказ товара</option>
           <option value="consultation">Консультация</option>
@@ -205,6 +237,7 @@
           name="comment"
           rows="4"
           placeholder="Укажите дополнительную информацию"
+          aria-invalid="false"
         ></textarea>
       </div>
 
@@ -215,8 +248,10 @@
             name="agreement"
             type="checkbox"
             required
+            aria-required="true"
+            aria-invalid="false"
           >
-          Я согласен на обработку данных
+          Я согласен на обработку данных *
         </label>
       </div>
 
@@ -226,5 +261,7 @@
       </div>
     </form>
   </dialog>
+
+  <button class="to-top" type="button" aria-label="Наверх" hidden>↑</button>
 </body>
 </html>
