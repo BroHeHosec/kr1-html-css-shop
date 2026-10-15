@@ -1,8 +1,8 @@
 // Получаем модальное окно по id.
 const orderDialog = document.getElementById('order-dialog');
 
-// Получаем все кнопки заказа в карточках товаров.
-const orderButtons = document.querySelectorAll('.product-card__button');
+// Получаем кнопки заказа и общую кнопку обратной связи.
+const orderButtons = document.querySelectorAll('.product-card__button, [data-open-order]');
 
 // Получаем кнопку закрытия модального окна.
 const closeDialogButton = document.getElementById('close-order-dialog');
@@ -10,11 +10,24 @@ const closeDialogButton = document.getElementById('close-order-dialog');
 // Получаем скрытое поле, в которое будет записан выбранный товар.
 const selectedProductInput = document.getElementById('selected-product');
 
-// Перебираем все кнопки «Заказать».
+// Клик по свободному месту снимает выбор поля и возвращает светлый фон.
+orderDialog.addEventListener('click', (event) => {
+  if (!event.target.closest('input, select, textarea, label, button')) {
+    document.getElementById('order-dialog-title').focus({ preventScroll: true });
+  }
+});
+
+// Подключаем открытие формы к каждой кнопке.
 orderButtons.forEach((button) => {
   button.addEventListener('click', () => {
     // Получаем название товара из data-атрибута.
-    const productName = button.dataset.product;
+    const productName = button.dataset.product || '';
+
+    // Убираем ошибки от предыдущей попытки заполнения.
+    orderForm.querySelectorAll('[aria-invalid]').forEach((field) => {
+      field.removeAttribute('aria-invalid');
+    });
+    successMessage.hidden = true;
 
     // Записываем название товара в скрытое поле формы.
     selectedProductInput.value = productName;
@@ -28,6 +41,7 @@ orderButtons.forEach((button) => {
 closeDialogButton.addEventListener('click', () => {
   orderDialog.close();
 });
+
 // Получаем форму заявки.
 const orderForm = document.getElementById('order-form');
 
