@@ -595,9 +595,6 @@ html {
 
 /* Переносимое меню на узком экране не перекрывает цель якоря. */
 @media (max-width: 540px) {
-  header {
-    position: static;
-  }
 
   .section {
     scroll-margin-top: var(--space-md);
